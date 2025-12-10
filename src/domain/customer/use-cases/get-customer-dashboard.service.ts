@@ -1,15 +1,15 @@
 import { CustomerRepository } from "src/infra/repositories/customer.repository";
-import { GetCustomerByIdResponseDto } from "src/application/controllers/customer/dtos/get-customer-by-id-response.dto";
 
 import { Injectable, NotFoundException } from "@nestjs/common";
+import { GetCustomerDashboardResponseDto } from "src/application/controllers/customer/dtos/get-customer-dashboard-response.dto";
 
 @Injectable()
-export class GetCustomerByIdService {
+export class GetCustomerDashboardService {
   constructor(
     private readonly customerRepository: CustomerRepository,
-  ) {}
+  ) { }
 
-  async execute(id: number): Promise<GetCustomerByIdResponseDto> {
+  async execute(id: number): Promise<GetCustomerDashboardResponseDto> {
     const existingCustomer = await this.customerRepository.findOne({
       where: {
         id
@@ -17,14 +17,12 @@ export class GetCustomerByIdService {
       relations: ['vehicles']
     });
 
-    if(!existingCustomer) {
+    if (!existingCustomer) {
       throw new NotFoundException("Usuário não encontrado.");
     }
 
     return {
-      id: existingCustomer.id!,
-      user: existingCustomer.user,
-      vehicles: existingCustomer.vehicles.map(vehicle => ({
+      veiculos: existingCustomer.vehicles.map(vehicle => ({
         ano: vehicle.year,
         chassi: vehicle.chassi,
         cor: vehicle.color,
@@ -38,7 +36,9 @@ export class GetCustomerByIdService {
         renavam: vehicle.renavam,
         updatedAt: vehicle.updatedAt,
         userId: vehicle.customerId,
-      }))
+      })),
+      orcamentoAguardandoAprovacao: [],
+      outrosOrcamentos: [],
     };
   }
 }

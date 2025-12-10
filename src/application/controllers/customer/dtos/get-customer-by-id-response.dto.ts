@@ -1,3 +1,7 @@
-import { CreateCustomerResponseDto } from "./create-customer-response.dto";
+import { CreateVehicleResponseDto } from "../../vehicle/dtos/crete-vehicle.dto";
 
-export class GetCustomerByIdResponseDto extends CreateCustomerResponseDto {}
+export class GetCustomerByIdResponseDto {
+  id: number;
+  user: string;
+  vehicles: CreateVehicleResponseDto[];
+}
