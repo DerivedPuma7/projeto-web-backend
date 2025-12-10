@@ -8,6 +8,7 @@ import { CustomerModule } from './main/modules/customer/customer.module';
 import { AuthModule } from './main/modules/auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { VehicleModule } from './main/modules/vehicle/vehicle.module';
+import { PartModule } from './main/modules/part/part.module';
 
 @Module({
   imports: [
@@ -29,7 +30,8 @@ import { VehicleModule } from './main/modules/vehicle/vehicle.module';
     }),
     CustomerModule,
     AuthModule,
-    VehicleModule
+    VehicleModule,
+    PartModule,
   ],
   controllers: [],
   providers: [],
