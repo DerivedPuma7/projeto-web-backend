@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TransactionModule } from './main/modules/transaction/transaction.module';
 import { dataSource } from './infra/database/datasource.config';
 import { Wallet } from './infra/entities/transaction/wallet.entity';
 import { Customer } from './infra/entities/customer/customer.entity';
@@ -8,6 +7,7 @@ import { TransactionHistory } from './infra/entities/transaction/transaction-his
 import { CustomerModule } from './main/modules/customer/customer.module';
 import { AuthModule } from './main/modules/auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
+import { VehicleModule } from './main/modules/vehicle/vehicle.module';
 
 @Module({
   imports: [
@@ -27,9 +27,9 @@ import { ConfigModule } from '@nestjs/config';
     ConfigModule.forRoot({
       isGlobal: true
     }),
-    TransactionModule,
     CustomerModule,
-    AuthModule
+    AuthModule,
+    VehicleModule
   ],
   controllers: [],
   providers: [],

@@ -11,21 +11,6 @@ export class Customer extends BaseOrmEntity {
   @Column({ nullable: false })
   user: string;
 
-  // @Column({ nullable: false })
-  // fullName: string;
-
-  // @Column({ nullable: false })
-  // birthDate: Date;
-
-  // @Column({ nullable: false })
-  // email: string;
-
-  // @Column({ nullable: false })
-  // phone: string;
-
-  // @Column({ nullable: false })
-  // document: string;
-
   @OneToOne(() => Wallet, (wallet) => wallet.customer)
   wallet: Wallet;
 

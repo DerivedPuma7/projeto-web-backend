@@ -1,6 +1,4 @@
 import { CustomerRepository } from "src/infra/repositories/customer.repository";
-import { WalletRepository } from "src/infra/repositories/wallet.repository";
-
 import { ConflictException, Injectable } from "@nestjs/common";
 import { CreateCustomerDto } from "src/application/controllers/customer/dtos/create-customer.dto";
 import { DataFormater } from "src/infra/gateways/dataFormater";
@@ -10,7 +8,6 @@ import { CreateCustomerResponseDto } from "src/application/controllers/customer/
 @Injectable()
 export class CreateCustomerService {
   constructor(
-    private readonly walletRepository: WalletRepository,
     private readonly customerRepository: CustomerRepository,
     private readonly dataFormater: DataFormater,
     private readonly hashProvider: HashProvider

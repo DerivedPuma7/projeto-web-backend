@@ -21,11 +21,16 @@ export class LoginService {
     const { user, password } = data;
     const customer = await this.getExistingUser(user);
     await this.validatePassword(password, customer.password);
+    
+    if(!customer.id) {
+      throw new BadRequestException("Usuário não encontrado.");
+    }
+
     const options: JwtSignOptions = {
       secret: process.env.JWT_SECRET,
       expiresIn: process.env.JWT_EXPIRATION
     };
-    const payload: RequestCustomer = { user: data.user };
+    const payload: RequestCustomer = { user: data.user, id: customer.id };
     const jwt = await this.jwtService.signAsync(payload, options);
 
     const customerResponse = GetCustomerByIdResponseDto.toDto(customer);
@@ -41,7 +46,7 @@ export class LoginService {
       where: { user, isActive: true },
     });
     if(!customer) {
-      throw new BadRequestException("CPF ou senha incorretos.");
+      throw new BadRequestException("Usuário não encontrado.");
     }
     return customer;
   }
@@ -49,7 +54,7 @@ export class LoginService {
   private async validatePassword(candidate: string, hash: string): Promise<void> {
     const passwordMatch = await this.hashProvider.compare(candidate, hash);
     if(!passwordMatch) {
-      throw new BadRequestException("CPF ou senha incorretos.");
+      throw new BadRequestException("Usuário não encontrado.");
     }
   }
 
