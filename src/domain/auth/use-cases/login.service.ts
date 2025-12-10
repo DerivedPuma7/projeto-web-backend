@@ -33,17 +33,35 @@ export class LoginService {
     const payload: RequestCustomer = { user: data.user, id: customer.id };
     const jwt = await this.jwtService.signAsync(payload, options);
 
-    const customerResponse = GetCustomerByIdResponseDto.toDto(customer);
-    return LoginResponseDto.toDto({
+    return {
+      customer: {
+        id: customer.id,
+        user: customer.user,
+        vehicles: customer.vehicles.map(vehicle => ({
+          ano: vehicle.year,
+          chassi: vehicle.chassi,
+          cor: vehicle.color,
+          createdAt: vehicle.createdAt,
+          id: vehicle.id,
+          km_atual: vehicle.currentMileage,
+          marca: vehicle.brand,
+          modelo: vehicle.model,
+          observacao: vehicle.observations,
+          placa: vehicle.licensePlate,
+          renavam: vehicle.renavam,
+          updatedAt: vehicle.updatedAt,
+          userId: vehicle.customerId,
+        }))
+      },
       token: jwt,
-      expiresIn: options.expiresIn,
-      customer: customerResponse,
-    });
+      expiresIn: process.env.JWT_EXPIRATION || '3600',
+    }
   }
 
   private async getExistingUser(user: string): Promise<Customer> {
     const customer = await this.customerRepository.findOne({
       where: { user, isActive: true },
+      relations: ['vehicles']
     });
     if(!customer) {
       throw new BadRequestException("Usuário não encontrado.");

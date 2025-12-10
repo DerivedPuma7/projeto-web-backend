@@ -12,10 +12,6 @@ export class Wallet extends BaseOrmEntity {
     super();
   }
 
-  @OneToOne(() => Customer, (customer) => customer.wallet)
-  @JoinColumn()
-  customer: Customer;
-
   @OneToMany(() => TransactionHistory, (transaction) => transaction.wallet)
   transactionsHistory: TransactionHistory[];
 

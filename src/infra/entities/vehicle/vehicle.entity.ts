@@ -35,7 +35,7 @@ export class Vehicle extends BaseOrmEntity {
   @Column({ nullable: true, type: 'text' })
   observations: string;
 
-  @ManyToOne(() => Customer)
+  @ManyToOne(() => Customer, (customer) => customer.vehicles)
   @JoinColumn({ name: 'customerId' })
   customer: Customer;
 
