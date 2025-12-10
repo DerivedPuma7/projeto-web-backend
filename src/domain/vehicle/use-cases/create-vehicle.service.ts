@@ -1,5 +1,6 @@
 import { ConflictException, Injectable } from "@nestjs/common";
 import { CreateVehicleDto, CreateVehicleResponseDto } from "src/application/controllers/vehicle/dtos/crete-vehicle.dto";
+import { VehicleResponseDto } from "src/application/controllers/vehicle/dtos/vehicle-response.dto";
 import { VehicleRepository } from "src/infra/repositories/vehicle.repository";
 
 @Injectable()
@@ -8,7 +9,7 @@ export class CreateVehicleService {
     private readonly vehicleRepository: VehicleRepository,
   ) { }
 
-  async execute(data: CreateVehicleDto): Promise<CreateVehicleResponseDto> {
+  async execute(data: CreateVehicleDto): Promise<VehicleResponseDto> {
     await this.validateExistingVehicle(data);
 
     const vehicle = this.vehicleRepository.create({
