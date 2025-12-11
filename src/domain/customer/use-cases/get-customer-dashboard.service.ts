@@ -14,12 +14,18 @@ export class GetCustomerDashboardService {
       where: {
         id
       },
-      relations: ['vehicles']
+      relations: ['vehicles', 'vehicles.serviceOrders', ]
     });
 
     if (!existingCustomer) {
       throw new NotFoundException("Usuário não encontrado.");
     }
+
+    const vehicles = existingCustomer?.vehicles || [];
+    const serviceOrders = vehicles.flatMap(vehicle => vehicle.serviceOrders || []);
+
+    const waitingApprovalServiceOrders = serviceOrders.filter(so => so.status === 'aguardando_aprovacao');
+    const otherServiceOrders = serviceOrders.filter(so => so.status !== 'aguardando_aprovacao');
 
     return {
       veiculos: existingCustomer.vehicles.map(vehicle => ({
@@ -37,8 +43,8 @@ export class GetCustomerDashboardService {
         updatedAt: vehicle.updatedAt,
         userId: vehicle.customerId,
       })),
-      orcamentoAguardandoAprovacao: [],
-      outrosOrcamentos: [],
+      orcamentoAguardandoAprovacao: waitingApprovalServiceOrders,
+      outrosOrcamentos: otherServiceOrders,
     };
   }
 }
