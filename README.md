@@ -1,12 +1,12 @@
 # projeto-web-backend
 
 ## Docker
-### Build image
+### Run database
 ```
-docker build -t image_name .
+docker compose up -d
 ```
 
-### Run container
+### Run app
 ```
-docker run --rm -p 3000:3000 --name container_name image_name
+npm run start:dev
 ```
