@@ -1,6 +1,7 @@
-import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 import { BaseOrmEntity } from "../base-orm-entity";
 import { Customer } from "../customer/customer.entity";
+import { ServiceOrder } from "../service-order/service-order.entity";
 
 @Entity('vehicle')
 export class Vehicle extends BaseOrmEntity {
@@ -41,4 +42,7 @@ export class Vehicle extends BaseOrmEntity {
 
   @Column({ nullable: false })
   customerId: string;
+
+  @OneToMany(() => ServiceOrder, (serviceOrder) => serviceOrder.vehicle)
+  serviceOrders: ServiceOrder[];
 }

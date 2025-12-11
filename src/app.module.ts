@@ -9,6 +9,7 @@ import { AuthModule } from './main/modules/auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { VehicleModule } from './main/modules/vehicle/vehicle.module';
 import { PartModule } from './main/modules/part/part.module';
+import { ServiceOrderModule } from './main/modules/service-order/service-order.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { PartModule } from './main/modules/part/part.module';
     AuthModule,
     VehicleModule,
     PartModule,
+    ServiceOrderModule,
   ],
   controllers: [],
   providers: [],
