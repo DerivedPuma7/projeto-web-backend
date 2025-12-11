@@ -10,6 +10,7 @@ import { ConfigModule } from '@nestjs/config';
 import { VehicleModule } from './main/modules/vehicle/vehicle.module';
 import { PartModule } from './main/modules/part/part.module';
 import { ServiceOrderModule } from './main/modules/service-order/service-order.module';
+import { PartUsedModule } from './main/modules/part-used/part-used.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { ServiceOrderModule } from './main/modules/service-order/service-order.m
     VehicleModule,
     PartModule,
     ServiceOrderModule,
+    PartUsedModule,
   ],
   controllers: [],
   providers: [],

@@ -1,7 +1,8 @@
-import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 import { BaseOrmEntity } from "../base-orm-entity";
 import { Vehicle } from "../vehicle/vehicle.entity";
 import { ServiceOrderStatus } from "./enums/service-order-status.enum";
+import { PartUsed } from "../part-used/part-used.entity";
 
 @Entity('service_order')
 export class ServiceOrder extends BaseOrmEntity {
@@ -37,4 +38,7 @@ export class ServiceOrder extends BaseOrmEntity {
 
   @Column({ type: 'decimal', precision: 10, scale: 2, default: 0 })
   totalValue: number;
+
+  @OneToMany(() => PartUsed, (partUsed) => partUsed.serviceOrder)
+  partsUsed: PartUsed[];
 }
