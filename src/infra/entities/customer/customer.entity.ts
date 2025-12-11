@@ -1,6 +1,5 @@
 import { Column, Entity, OneToMany, OneToOne } from "typeorm";
 import { BaseOrmEntity } from "../base-orm-entity";
-import { Wallet } from "../transaction/wallet.entity";
 import { Vehicle } from "../vehicle/vehicle.entity";
 
 @Entity('customer')
